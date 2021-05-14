@@ -4,12 +4,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 
+# instance for blueprints
 views = Blueprint('views', __name__)
 
+# home page
 @views.route('/')
 def home():
     return render_template('base.html', user=current_user)
 
+# login page
 @views.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
@@ -32,6 +35,7 @@ def login():
     else:
         return render_template('login.html', user=current_user)
 
+# register page
 @views.route('/reg', methods=['GET','POST'])
 def reg():
     if request.method == 'POST':
@@ -65,6 +69,7 @@ def reg():
     else:
         return render_template('register.html', user=current_user)
 
+# logout
 @views.route('/logout')
 @login_required
 def logout():
